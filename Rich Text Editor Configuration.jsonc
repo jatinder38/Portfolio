@@ -29,7 +29,7 @@ Up to three levels, or layers, of configuration can be applied to customize the 
         "font-size": "11pt",
         "font-family": "'Arial'"
         },
-        "stickyStyles_defaultTag": "div", //Can be <div> or <p>
+        "stickyStyles_defaultTag": "div", //Can be <div> or <p>.
         "disableImages": true //Disables images to be used in the editor.
     },
         "showAsTabControl": false, //Hide or show a tab named 'Designer'.
