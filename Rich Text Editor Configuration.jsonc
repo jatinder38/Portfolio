@@ -10,28 +10,28 @@ Up to three levels, or layers, of configuration can be applied to customize the 
 */
 {
     "defaultSupportedProps": {
-        "font_defaultLabel": "Verdana", //Sets the font label of the editor for appearance only.
-        "font_names": "Verdana/ 'Verdana'", //Sets the list of available fonts in the editor.
-        "fontSize_defaultLabel": "12", //Sets the default font size label of the editor.
-        "fontsize_sizes": "12/12pt", //Sets the list of available font sizes in the editor.
+        "font_defaultLabel": "Arial", //Sets the font label of the editor for appearance only.
+        "font_names": "Arial/ 'Arial'", //Sets the list of available fonts in the editor.
+        "fontSize_defaultLabel": "11", //Sets the default font size label of the editor.
+        "fontsize_sizes": "11/11pt", //Sets the list of available font sizes in the editor.
         "pasteFilter": null, //Used to filter the HTML components when text is pasted into the editor, for eg: h1, h2, h3, b.
         /*Below property is used to remove the out of box features or plugins of the CKEDITOR, 
           in this instance the plugins like userpersonalization, upload a file, create a table, other table tools will be removed from the rich text editor's toolbar
           also removing the plugins like- autogrow will disable the dynamic height adjustment of the editor according to the text.*/
-        "removePlugins": "autogrow, allyhelp, codemirror, magicline, scayt, showborders, userpersonalization, superimage, uploadfile, uploadimage,uploadwidget,table,quicktable,tableresize,tableselection,tabletools",
-        "pasteFromWordRemoveFontStyles": true, //Removes the font-family, font-size and font-color styles when a text is copied form a word document to the editor. 
+        "removePlugins": "autogrow, allyhelp, contextmenu,liststyle,openlink, codemirror, magicline, scayt, showborders, superimage, uploadfile, uploadimage,uploadwidget,table,quicktable,tableresize,tableselection,tabletools",
+        "pasteFromWordRemoveFontStyles": false, //If true, removes the font-family, font-size and font-color styles when a text is copied form a word document to the editor. 
         "disallowedContent" : "*(margin*}", //Works as an advanced content filter to remove HTML components or properties.
         "qtStyle": {
         "border-collapse": "collapse",
-        "font-size": "12pt"
+        "font-size": "11pt"
         },
         "stickyStyle": { // This property determines the editor's real font-family and font-size.
-        "font-size": "12pt",
-        "font-family": "'Verdana'"
+        "font-size": "11pt",
+        "font-family": "'Arial'"
         },
         "stickyStyles_defaultTag": "div", //Can be <div> or <p>
         "disableImages": true //Disables images to be used in the editor.
     },
         "showAsTabControl": false, //Hide or show a tab named 'Designer'.
-        "showFullScreenExpander": true //Hide or show an icon which is used to maximise/minimize the editor modal.
+        "showFullScreenExpander": false //Hide or show an icon which is used to maximise/minimize the editor modal.
 }
