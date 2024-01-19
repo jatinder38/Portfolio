@@ -44,7 +44,11 @@ formContext.data.process.addOnStageSelected();
 formContext.data.process.removeOnStageSelected();
 
 //Get Process Id 
-formContext.data.process.getId();
+formContext.data.process.getId(); //or
+var processId = formContext.data.process.getActiveProcess().getId();
+
+//Get Process Name:
+var processName = formContext.data.process.getActiveProcess().getName();
 
 //Get Process status
 var processStatus = formContext.data.process.getStatus(); //Returns the current status of the process instance.
@@ -59,7 +63,10 @@ formContext.data.process.getActiveStage();	//Returns a Stage object representing
 formContext.data.process.setActiveStage();	//Sets a stage as the active stage.
 
 //get Guid of the stage
-formContext.data.process.getActiveStage().getId(); //Returns the unique identifier of the stage.
+var stageId = formContext.data.process.getActiveStage().getId(); //Returns the unique identifier of the stage.
+
+//get Name of the stage
+var stageName = formContext.data.process.getActiveStage().getName(); //Returns the name of the stage
 
 //move to next stage, can be used with OnPreStageChange event
 formContext.data.process.moveNext();
@@ -79,5 +86,11 @@ formContext.ui.process.setVisible(false);
 formContext.ui.process.setVisible(true);
 
 //check if BPF is visible, returns true if it is visible; false otherwise.
-formContext.ui.process.getVisible();
+var isVisible = formContext.ui.process.getVisible();
 
+//get Display State of a process:
+var value = formContext.ui.process.getDisplayState(); //Returns either collapsed or expanded or floating 
+
+//set Display State of a process:
+var value = `"collapsed" or "expanded" or "floating"`
+formContext.ui.process.setDisplayState(value);
