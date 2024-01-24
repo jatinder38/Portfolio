@@ -27,7 +27,7 @@ Xrm.WebApi.retrieveMultipleRecords(entity, selectedColumns + filter).then(
             var name = result["name"];
             console.log(accountid + ": " + name);
         }                    
-        // If you're trying to get the first record
+        //If you're trying to get the first record
         if (result != null) {
             console.log(result.entities[0].name);
         }
@@ -37,8 +37,8 @@ Xrm.WebApi.retrieveMultipleRecords(entity, selectedColumns + filter).then(
     }
 );
 
-// Create a basic record using WebAPI
-// define the data to create new account
+//Create a basic record using WebAPI
+//define the data to create new account
 var data =
     {
         "name": "Sample Account",
@@ -48,19 +48,19 @@ var data =
         //The line below creates an association with an existing contact record to set the latter as the primary contact for the new account record
         "primarycontactid@odata.bind": "/contacts(465b158c-541c-e511-80d3-3863bb347ba8)" 
     }
-// create a basic account record
+//create a basic account record
 Xrm.WebApi.createRecord("account", data).then(
     function success(result) {
         console.log("Account created with ID: " + result.id);
-        // perform operations on record creation
+        //perform operations on record creation
     },
     function (error) {
         console.log(error.message);
-        // handle error conditions
+        //handle error conditions
     }
 );
-// Create an advanced record using WebAPI
-// define data to create primary and related table records
+//Create an advanced record using WebAPI
+//define data to create primary and related table records
 var data =
     {
         "name": "Sample Account",
@@ -83,20 +83,20 @@ var data =
             }
         ]
     }
-// create an advanced account record with primary contact and opportunity
+//create an advanced account record with primary contact and opportunity
 Xrm.WebApi.createRecord("account", data).then(
     function success(result) {
         console.log("Account created with ID: " + result.id);
-        // perform operations on record creation
+        //perform operations on record creation
     },
     function (error) {
         console.log(error.message);
-        // handle error conditions
+        //handle error conditions
     }
 );
 
-// Update a record using WebAPI
-// define the data to update a record
+//Update a record using WebAPI
+//define the data to update a record
 var data =
     {
         "name": "Updated Sample Account ",
@@ -104,32 +104,32 @@ var data =
         "revenue": 6000000,
         "accountcategorycode": 2
     }
-// update the record
+//update the record
 Xrm.WebApi.updateRecord("account", "5531d753-95af-e711-a94e-000d3a11e605", data).then(
     function success(result) {
         console.log("Account updated");
-        // perform operations on record update
+        //perform operations on record update
     },
     function (error) {
         console.log(error.message);
-        // handle error conditions
+        //handle error conditions
     }
 );
-// To update association to the related table records (lookups), set the value of single-valued navigation properties using the @odata.bind annotation to another record.
-// define the data to update a record association
+//To update association to the related table records (lookups), set the value of single-valued navigation properties using the @odata.bind annotation to another record.
+//define the data to update a record association
 var data =
     {
         "primarycontactid@odata.bind": "/contacts(61a0e5b9-88df-e311-b8e5-6c3be5a8b200)"
     }
-// update the record association
+//update the record association
 Xrm.WebApi.updateRecord("account", "5531d753-95af-e711-a94e-000d3a11e605", data).then(
     function success(result) {
         console.log("Account updated");
-        // perform operations on record update
+        //perform operations on record update
     },
     function (error) {
         console.log(error.message);
-        // handle error conditions
+        //handle error conditions
     }
 );
 
@@ -137,10 +137,10 @@ Xrm.WebApi.updateRecord("account", "5531d753-95af-e711-a94e-000d3a11e605", data)
 Xrm.WebApi.deleteRecord("account", "5531d753-95af-e711-a94e-000d3a11e605").then(
     function success(result) {
         console.log("Account deleted");
-        // perform operations on record deletion
+        //perform operations on record deletion
     },
     function (error) {
         console.log(error.message);
-        // handle error conditions
+        //handle error conditions
     }
 );

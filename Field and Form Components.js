@@ -95,13 +95,13 @@ formContext.data.entity.attributes.forEach(function (attribute, index) {
 });
 
 //To save the form:
-   formContext.data.save();
+formContext.data.save();
 
 //To get the Entity name:
-   var value = formContext.data.entity.getEntityName();
+var value = formContext.data.entity.getEntityName();
 
 //To get GUID of a current record:
-    var value = formContext.data.entity.getId();
+var value = formContext.data.entity.getId();
 
 //Open another entity form:
-    Xrm.Utility.openEntityForm("entityName");
+Xrm.Utility.openEntityForm("entityName");

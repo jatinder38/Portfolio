@@ -4,9 +4,12 @@
 /*
 Levels of customization - According to the documentation: https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/rich-text-editor-control#levels-of-customization
 Up to three levels, or layers, of configuration can be applied to customize the rich text editor:
-1. (Can't modify the fundamental file)- At the most fundamental level, every instance of the control takes its configuration from the file RTEGlobalConfiguration_Readonly.json. The file is read-only, so you can't change these properties directly.
-2. (Modify this file to modify the editor for all the Rich Text Editor columns)- At the next level, every instance of the control takes its configuration from the properties in the file RTEGlobalConfiguration.json, if any are present. This configuration is layered on top of the previous one, so the properties in this file replace the same named properties in the read-only file.
-3. (Create a new webresource with different set of properties for a specific Rich Text Editor column)- Finally, at the highest level, a specific instance of the control takes its configuration from a specific configuration file, if one exists. This configuration is layered on top of the previous one, so the properties in this file replace the same named properties in the two lower-level files.
+1. Not allowed to modify the fundamental file- At the most fundamental level, every instance of the control takes its configuration from the file RTEGlobalConfiguration_Readonly.json.
+    The file is read-only, so you can't change these properties directly.
+2. Modify this file to modify the editor for all the Rich Text Editor columns in the Dynamics 365- At the next level, every instance of the control takes its configuration
+    from the properties in the file RTEGlobalConfiguration.json, if any are present. This configuration is layered on top of the previous one, so the properties in this file replace the same named properties in the read-only file.
+3. Create a new webresource with different set of properties for a specific Rich Text Editor column- Finally, at the highest level, a specific instance of the control takes its configuration
+    from a specific configuration file, if one exists. This configuration is layered on top of the previous one, so the properties in this file replace the same named properties in the two lower-level files.
 */
 {
     "defaultSupportedProps": {
