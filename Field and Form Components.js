@@ -78,6 +78,21 @@ var numberOfControls = controls.length;
     }
 };
 
+//Hide a Form from Form-Selector
+var formItems = formContext.ui.formSelector.items.get(arg);
+
+//Get GUID of the form
+var formId = formContext.ui.formSelector.getCurrentItem().getId();
+
+//Get current form
+var formItem = formContext.ui.formSelector.getCurrentItem();
+
+//set the visibility of the form in Form selector
+formItem.setVisible(bool); //here bool = true or false
+
+//Navigate the user to the selected form
+formItem.navigate();
+
 //Enable/Disable Tab (read only):
 var Tab =  formContext.ui.tabs.get(tabName);
 var Sections =  Tab.sections.get();
@@ -98,10 +113,10 @@ formContext.data.entity.attributes.forEach(function (attribute, index) {
 formContext.data.save();
 
 //To get the Entity name:
-var value = formContext.data.entity.getEntityName();
+var entityName = formContext.data.entity.getEntityName();
 
 //To get GUID of a current record:
-var value = formContext.data.entity.getId();
+var recordId = formContext.data.entity.getId();
 
 //Open another entity form:
 Xrm.Utility.openEntityForm("entityName");
