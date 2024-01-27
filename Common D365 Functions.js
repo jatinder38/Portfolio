@@ -92,3 +92,35 @@ function HideCustomButtonWithStatus(primaryControl){
 //Call an action via JavaScript
 
 //Call a Power Automate flow via JavaScript
+//Create a Power Automate flow using the trigger => When a HTTP request is received.
+//Create a Request Body JSON schema by adding a sample JSON payload.
+//Add actions in the flow and save it. It will create a unique HTTP POST URL.
+//Use the same URL in the JavaScript function.
+function callFlow(executionContext) {
+    var formContext = executionContext.getFormContext();
+    var accountId = formContext.getAttribute("accountid").getValue();
+    var accountName = formContext.getAttribute("name").getValue();
+    var email = formContext.getAttribute("emailaddress1").getValue();
+    var params = {
+        "Id":accountId,
+        "Name":accountName,
+        "Email":email
+   }
+    var url = "https://prod-000.westus.logic.azure.com:443/workflows/75b05db9981e41x00a6887fff03c1fee/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uGEet3rej2Z1xWu7JS-8WTLUF0sRnmRsGaXQGSpz1yw";
+    var req = new XMLHttpRequest();
+	req.open("POST", url, true);
+    req.setRequestHeader('Content-Type', 'application/json');
+    req.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            req.onreadystatechange = null;
+            if (this.status === 200) {
+                let resultJson = JSON.parse(this.response);
+                //You may also notify the end-user regarding the success of this action by creating a form level notification or showing an alert dialog.
+            } else {
+                console.log(this.statusText);
+            }
+        }
+    };
+    req.send(JSON.stringify(params));
+    
+}
