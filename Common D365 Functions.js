@@ -71,6 +71,10 @@ function RefreshGrid(){
 };
 
 //Hide|Show the ribbon button on the basis of record status reason
+/* Go to the Ribbon Workbench and customize the command of the button you want to hide.
+ Add a new Enable Rule with custom logic
+ Add this function in the custom logic and pass CRM parameter as a parameter
+ Attach the enable rule to custom command and publish the solution.*/
 function HideCustomButtonWithStatus(primaryControl){
     var formContext = primaryControl;
     var value = true;
@@ -80,23 +84,96 @@ function HideCustomButtonWithStatus(primaryControl){
     }
     return value;
 };
-/* Go to the Ribbon Workbench and customize the command of the button you want to hide.
- Add a new Enable Rule with custom logic
- Add this function in the custom logic and pass CRM parameter as a parameter
- Attach the enable rule to custom command and publish the solution.*/
+
 
 //Hide the ribbon button on the basis of security role
+function CheckButtonAccessBasedOnRole(context) {
+    var currentUserRoles = context._globalContext._userSettings.securityRoles;
+    var roleName = "customer service manager"; //use lower case for security role name
+    // Get all the roles of the Logged in User.
+    for (var i = 0; i < currentUserRoles.length; i++) {
+        var userRoleName = currentUserRoles[i].name;
+        if (userRoleName == roleName) {
+            // Return true if the Role matches
+            return true;
+        }
+    }
+    return false;
+};
 
-//Hide the ribbon button on the basis of form id and/or form type
+//Hide/Show the ribbon button on the basis of form type
+function HideRibbonButtonBasedOnFormType(eContext) {
+    var formContext = eContext.getFormContext();
+    let formType = formContext.ui.getFormType();
+    var value = false;
+    //https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/getformtype#return-value
+    const formTypeIsCreateRecord = 1;
+    const formTypeIsUpdateRecord = 2;
+    if (formType != formTypeIsCreateRecord) { //shows button for all form types except 'Create'
+       value = true;
+    }
+    return value;
+};
 
-//Call an action via JavaScript
+//Hide/Show the ribbon button on the basis of form id
+function HideRibbonButtonBasedOnFormId(eContext) {
+    var formContext = eContext.getFormContext();
+    var formId = formContext.ui.formSelector.getCurrentItem().getId();
+    var value = false;
+    //https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-formselector/getid
+    const mainFormId = "a72c7955-542b-4ea4-9459-b10cd18b4276"; //Main Form Id
+    if (formId == mainFormId) { //shows button on Main Form only
+       value = true;
+    }
+    return value;
+};
+
+//Call Custom Action from JavaScript and Run Plugin for custom message in Dynamics 365
+function CallCustomActionFromJavaScript() {
+    //get the current organization url
+	var globalContext = Xrm.Utility.getGlobalContext();
+    var serverURL = globalContext.getClientUrl();
+    //query to send the request to the global Action 
+	//Global Action Unique Name - this name is Case Sensitive
+    var actionName = "jat_MyCustomAction"; 
+    //set the current loggedin userid in to _inputParameter of the 
+    var InputParamValue = globalContext.userSettings.userId;
+    //Pass the input parameters to action
+    var data = {
+    "MyInputParam": InputParamValue
+    };
+    //Create the HttpRequestObject to send WEB API Request 
+    var req = new XMLHttpRequest();
+    req.open("POST", serverURL + "/api/data/v9.2/" + actionName, true);
+    req.setRequestHeader("Accept", "application/json");
+    req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    req.setRequestHeader("OData-MaxVersion", "4.0");
+    req.setRequestHeader("OData-Version", "4.0");
+    req.onreadystatechange = function () {
+        if (this.readyState == 4 /* complete */){
+            req.onreadystatechange = null;
+            if (this.status == 200 || this.status == 204){
+                console.log("Action Called Successfully...");
+               //Get the output parameter of the action (if any)
+               result = JSON.parse(this.response);
+               console.log(result.MyOutputParam);
+            }
+            else {
+                var error = JSON.parse(this.response).error;
+                console.log("Error in Action: "+error.message);
+            }
+        }
+    };
+    //Execute request passing the input parameter of the action 
+    req.send(window.JSON.stringify(data));
+}
 
 //Call a Power Automate flow via JavaScript
 //Create a Power Automate flow using the trigger => When a HTTP request is received.
 //Create a Request Body JSON schema by adding a sample JSON payload.
 //Add actions in the flow and save it. It will create a unique HTTP POST URL.
 //Use the same URL in the JavaScript function.
-function callFlow(executionContext) {
+function CallCloudFlow(executionContext) {
     var formContext = executionContext.getFormContext();
     var accountId = formContext.getAttribute("accountid").getValue();
     var accountName = formContext.getAttribute("name").getValue();
@@ -122,5 +199,4 @@ function callFlow(executionContext) {
         }
     };
     req.send(JSON.stringify(params));
-    
 }
