@@ -128,6 +128,23 @@ function HideRibbonButtonBasedOnFormId(eContext) {
     return value;
 };
 
+//Hide/Show a ribbon button for a specific tab, bind the function to the button in ribbon workbench
+function ShowHideButtonOnTabChange(primaryControl){
+    var formContext = primaryControl;
+    var value = false;
+    var generalTab = formContext.ui.tabs.get("generaltab");
+    if(generalTab.getDisplayState() == "collapsed"){
+        value = true;
+    }
+    return value;
+};
+
+//bind to tab state change to run the above function
+function RefreshRibbon(executionContext){
+    var formContext = executionContext.getFormContext();
+    formContext.ui.refreshRibbon();
+};
+
 //Call Custom Action from JavaScript and Run Plugin for custom message in Dynamics 365
 function CallCustomActionFromJavaScript() {
     //get the current organization url
